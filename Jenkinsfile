@@ -20,8 +20,8 @@ pipeline
    
    stage('Deploy Application in Mulesoft Cloudhub'){
    environment{
-	    connAppclientId=credentials('connAppclientid')
-              connAppclientSecret=credentials('connAppclientsecret')
+	    connAppclientId=credentials('connectedAppclientid')
+              connAppclientSecret=credentials('connectedAppclientsecret')
               connAppgrantType='client_credentials'
 		  }
 		

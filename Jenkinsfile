@@ -25,7 +25,7 @@ pipeline
    
    stage('Deploy Application in Mulesoft Cloudhub'){
    steps{
-   bat 'mvn package deploy -DmuleDeploy -DconnectedAppClientId = ${connAppclientId} -DconnectedAppClientSecret = ${connAppclientSecret} -DconnectedAppGrantType = ${connAppgrantType}'
+   bat 'mvn clean package deploy -DmuleDeploy -DconnectedAppClientId = ${connAppclientId} -DconnectedAppClientSecret = ${connAppclientSecret} -DconnectedAppGrantType = ${connAppgrantType}'
    }
    }
   }

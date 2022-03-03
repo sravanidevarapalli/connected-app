@@ -25,10 +25,11 @@ pipeline
               connAppgrantType='client_credentials'
 		  }
 		
-            }
+            
    steps{
    bat 'mvn package deploy -DmuleDeploy -DconnectedAppClientId = ${connAppclientId} -DconnectedAppClientSecret = ${connAppclientSecret} -DconnectedAppGrantType = ${connAppgrantType}'
    }
    }
   }
+}
 

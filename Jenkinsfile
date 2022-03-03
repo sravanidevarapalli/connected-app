@@ -24,8 +24,7 @@ pipeline
               connAppclientSecret=credentials('connAppclientsecret')
               connAppgrantType='client_credentials'
 		  }
-		  when {
-                branch 'Sandbox' 
+		
             }
    steps{
    bat 'mvn package deploy -DmuleDeploy -DconnectedAppClientId = ${connAppclientId} -DconnectedAppClientSecret = ${connAppclientSecret} -DconnectedAppGrantType = ${connAppgrantType}'

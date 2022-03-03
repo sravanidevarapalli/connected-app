@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:os="http://www.mulesoft.org/schema/mule/os" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="88d2f1f7-4ad9-485d-af5d-2ab8b0ccb173" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="testFlow" doc:id="03badaff-b520-4b20-a139-0a63c77b0e26" >
+		<http:listener doc:name="Listener" doc:id="7634f911-b996-4d00-b0f0-71cbc7253d73" config-ref="HTTP_Listener_config" path="/store"/>
+		<ee:transform doc:name="Transform Message" doc:id="15e9923c-35e7-40ed-9ec3-432239b45661" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+"current_date": now() as String {format: "dd-MMM-yyyy"}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<os:store doc:name="Store" doc:id="57d58dd8-fd94-461a-ba14-65caaf055a50" key="date" objectStore="Object_store">
+			<os:value ><![CDATA[#[payload.current_date]]]></os:value>
+		</os:store>
+		<logger level="INFO" doc:name="Logger" doc:id="bdbfce08-f44a-4885-9cf5-0300be472e4f" message="#[payload]"/>
+		<os:retrieve doc:name="Retrieve" doc:id="50b2a499-e9c8-41d6-bb50-0e8c40875c8f" key="date" objectStore="Object_store">
+			<os:default-value ><![CDATA[#[payload.current_date]]]></os:default-value>
+		</os:retrieve>
+		<logger level="INFO" doc:name="Logger" doc:id="aa0e6875-225f-44de-aea0-7919c71e6c9c" message="#[payload]"/>
+	</flow>
+</mule>

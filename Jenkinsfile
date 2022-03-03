@@ -20,7 +20,7 @@ pipeline
    
    stage('Deploy Application in Mulesoft Cloudhub'){
    environment{
-		      connAppclientId=credentials('connAppclientid')
+	    connAppclientId=credentials('connAppclientid')
               connAppclientSecret=credentials('connAppclientsecret')
               connAppgrantType='client_credentials'
 		  }
@@ -28,8 +28,7 @@ pipeline
                 branch 'Sandbox' 
             }
    steps{
-   bat 'mvn package deploy -DmuleDeploy -DconnectedAppClientId = ${connAppclientId} -DconnectedAppClientSecret = ${connAppclientSecret}
-   -DconnectedAppGrantType = ${connAppgrantType}'
+   bat 'mvn package deploy -DmuleDeploy -DconnectedAppClientId = ${connAppclientId} -DconnectedAppClientSecret = ${connAppclientSecret} -DconnectedAppGrantType = ${connAppgrantType}'
    }
    }
   }

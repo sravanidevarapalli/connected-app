@@ -9,17 +9,12 @@ pipeline
      
 
  stages{
-    stage('Build Application'){
-    steps{
-    bat 'mvn clean install'
-    }
-    }
-    
-    stage('Mule Test Application'){
-    steps{
-     bat 'mvn clean test'
-    }
-    }
+   stage('Build') {
+            steps {
+              bat  "mvn clean -U install -DskipTests"
+            
+        }
+        }
     
     
    
